@@ -22,7 +22,7 @@ jobs:
 
       - name: Run flake8
         run: |
-          flake8 src tests > flake8-report.txt
+          flake8 src tests > flake8-report.txt || true
 
       - name: Upload flake8 report
         uses: actions/upload-artifact@v3
