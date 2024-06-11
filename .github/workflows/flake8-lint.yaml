@@ -30,7 +30,13 @@ jobs:
           name: flake8-report
           path: ./flake8-report.txt
 
-      - name: Annotate lint errors
-        if: failure()
-        run: |
-          echo "##[warning] Lint errors detected"
+      - name: Deploy HTML report
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.TOKEN_GITHUB }}
+          publish_dir: .  # Directory containing the HTML report
+      
+     # - name: Annotate lint errors
+     #   if: failure()
+      #  run: |
+       #   echo "##[warning] Lint errors detected"
