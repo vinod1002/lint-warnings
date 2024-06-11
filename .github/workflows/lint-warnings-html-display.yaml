@@ -1,0 +1,41 @@
+name: Code Analysis
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  analyze_code:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install flake8
+
+      - name: Run static analysis
+        run: |
+          flake8 --format=html --htmldir=flake8-report
+
+      - name: Convert Flake8 report to Markdown
+        id: convert_report
+        run: |
+          echo "### Flake8 Report Summary" > flake8-report.md
+          echo "\`\`\`" >> flake8-report.md
+          cat flake8-report.txt >> flake8-report.md
+          echo "\`\`\`" >> flake8-report.md
+
+      - name: Post Flake8 report as comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          token: ${{ secrets.TOKEN_GITHUB }}
+          path: flake8-report.md
