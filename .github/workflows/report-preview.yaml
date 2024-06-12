@@ -38,6 +38,6 @@ jobs:
 
     steps:
       - name: Visualize Flake8 HTML report in GitHub Actions
-        uses: dorny/gha-reporter-action@v2
+        uses: dorny/test-reporter@v1
         with:
           path: flake8-report/index.html
