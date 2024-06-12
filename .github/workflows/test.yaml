@@ -1,9 +1,7 @@
 name: test-reporter-visual
 
 on:
-  push:
-    branches:
-      - test-reporter
+  workflow_dispatch:
 
 jobs:
   test:
