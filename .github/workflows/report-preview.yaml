@@ -1,4 +1,4 @@
-name: HTML Preview
+name: HTML Visual Report
 
 on: 
   workflow_dispatch:
