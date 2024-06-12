@@ -1,0 +1,52 @@
+name: Python Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x  # Replace with your Python version
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # Adjust as per your requirements
+
+      - name: Run tests
+        run: |
+          pytest --maxfail=3
+
+      - name: Lint code
+        run: |
+          pip install pylint
+          pylint src/math_operations.py || true  # Intentionally introduce linting error in src/sample.py
+          pylint tests/test_math_operations.py || true  # Intentionally introduce linting error in tests/test_sample.py
+
+      - name: Generate HTML report
+        run: |
+          pytest --html=pytest_report.html
+
+      - name: Publish HTML artifact
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-report
+          path: pytest_report.html
+
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: .  # This deploys all artifacts to the root of gh-pages branch
+          CLEAN: true
