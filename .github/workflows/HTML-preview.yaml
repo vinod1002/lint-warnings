@@ -37,5 +37,4 @@ jobs:
         id: html_preview
         uses: pavi2410/html-preview-action@v2
         with:
-          path: flake8-report
-          html_file: index.html
+          html_file: flake8-report/index.html
