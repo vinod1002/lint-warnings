@@ -50,3 +50,5 @@ jobs:
         fail-on-empty: true
         only-summary: false
         token: ${{ secrets.TOKEN_GITHUB }}
+      env:
+        JAVA_HOME: /home/vio3kor/lint-warnings/actions-runner/_work/_tool/Java_Adopt_jdk/11.0.23-9/x64
