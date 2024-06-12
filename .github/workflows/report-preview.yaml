@@ -41,7 +41,7 @@ jobs:
         uses: dorny/test-reporter@v1
         with:
           name: Flake8 Report
-          reporter: html
+          reporter: dotnet-trx
           path: flake8-report/index.html
           path-replace-backslashes: false
           list-suites: all
