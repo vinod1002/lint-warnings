@@ -27,13 +27,16 @@ jobs:
         overwrite-settings: true
         job-status: success
 
-    - name: Build and Test with Maven
-      run: mvn clean install || true
+    - name: Install Dependencies and Build with Maven
+      run: |
+        sudo apt install maven -y
+        mvn clean install
 
     - name: Run Java Program
       run: java -cp target/my-app-1.0-SNAPSHOT.jar com.mycompany.app.App || true
 
     - name: Generate JUnit Test Report
+      if: always()  # Ensure this step always runs, even if previous steps fail
       uses: dorny/test-reporter@v1
       with:
         name: JUnit Test Report
@@ -47,4 +50,3 @@ jobs:
         fail-on-empty: true
         only-summary: false
         token: ${{ secrets.TOKEN_GITHUB }}
-        run: sudo apt install maven -y
