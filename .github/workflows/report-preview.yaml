@@ -34,10 +34,19 @@ jobs:
         if: always()
 
   visualize:
+    needs: lint
     runs-on: self-hosted
-
     steps:
       - name: Visualize Flake8 HTML report in GitHub Actions
         uses: dorny/test-reporter@v1
         with:
+          name: Flake8 Report
           path: flake8-report/index.html
+          path-replace-backslashes: false
+          list-suites: all
+          list-tests: all
+          max-annotations: 10
+          fail-on-error: true
+          fail-on-empty: true
+          only-summary: false
+          token: ${{ secrets.TOKEN_GITHUB }}
