@@ -23,7 +23,7 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest --maxfail=3
+          pytest --maxfail=10
 
       - name: Lint code
         run: |
