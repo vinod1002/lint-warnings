@@ -2,7 +2,9 @@
 name: Test
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - test-reporter
   
 jobs:
   test:
