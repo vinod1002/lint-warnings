@@ -1,3 +1,4 @@
+from src.sample import my_function
 import pytest
 from src.sample import my_function
 
