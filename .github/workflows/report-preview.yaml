@@ -1,4 +1,4 @@
-name: Report Preview
+name: HTML Preview
 
 on: 
   workflow_dispatch:
@@ -33,9 +33,9 @@ jobs:
           path: flake8-report
         if: always()
 
-  preview:
+  visualize:
     runs-on: self-hosted
-    needs: lint
+
     steps:
       - name: Download Flake8 HTML report
         uses: actions/download-artifact@v2
@@ -43,7 +43,7 @@ jobs:
           name: flake8-report
           path: flake8-report
 
-      - name: HTML Preview
-        uses: pavi2410/html-preview-action@v2
+      - name: Visualize Flake8 HTML report
+        uses: dorny/reporter@v1
         with:
-          html_file: 'flake8-report/index.html'
+          path: flake8-report/index.html
