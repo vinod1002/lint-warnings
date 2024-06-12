@@ -27,7 +27,7 @@ jobs:
 
       - name: Convert Flake8 text report to HTML
         run: |
-          pandoc -f markdown -t html -o flake8-report.html flake8-report.txt
+          awk 'BEGIN { print "<html><body><pre>" } {print} END { print "</pre></body></html>" }' flake8-report.txt > flake8-report.html
           
       - name: Upload Flake8 HTML report
         uses: actions/upload-artifact@v2
