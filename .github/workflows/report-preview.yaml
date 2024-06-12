@@ -21,16 +21,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Flake8 and generate HTML report
+      - name: Run Flake8 and generate text report
         run: |
-          mkdir -p flake8-report
-          flake8 --format=html --htmldir=flake8-report || true
+          flake8 > flake8-report.txt || true
 
+      - name: Convert Flake8 text report to HTML
+        run: |
+          pandoc -f markdown -t html -o flake8-report.html flake8-report.txt
+          
       - name: Upload Flake8 HTML report
         uses: actions/upload-artifact@v2
         with:
           name: flake8-report
-          path: flake8-report
+          path: flake8-report.html
         if: always()
 
   visualize:
@@ -42,7 +45,7 @@ jobs:
         with:
           name: Flake8 Report
           reporter: dotnet-trx
-          path: flake8-report/index.html
+          path: flake8-report.html
           path-replace-backslashes: false
           list-suites: all
           list-tests: all
