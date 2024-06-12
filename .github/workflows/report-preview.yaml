@@ -37,13 +37,7 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Download Flake8 HTML report
-        uses: actions/download-artifact@v2
-        with:
-          name: flake8-report
-          path: flake8-report
-
-      - name: Visualize Flake8 HTML report
-        uses: dorny/reporter@v1
+      - name: Visualize Flake8 HTML report in GitHub Actions
+        uses: dorny/gha-reporter-action@v2
         with:
           path: flake8-report/index.html
