@@ -32,3 +32,9 @@ jobs:
           name: flake8-report
           path: flake8-report
         if: always()
+        
+      - name: Preview HTML files
+        id: html_preview
+        uses: pavi2410/html-preview-action@v2
+        with:
+          path: index.html
