@@ -1,4 +1,4 @@
-name: CI
+name: test-reporter-visual
 
 on:
   push:
@@ -61,4 +61,4 @@ jobs:
         fail-on-empty: true
         only-summary: false
       env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN _GITHUB}}
+        GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB}}
