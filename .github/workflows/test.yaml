@@ -1,0 +1,43 @@
+
+name: Test
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  test:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install pytest pytest-html
+
+    - name: Run tests
+      run: |
+        source venv/bin/activate
+        pytest --html=report.html --self-contained-html
+
+    - name: Upload test report
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-report
+        path: report.html
+
+    - name: Test Reporter
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: Pytest Report
+        path: report.html
+        reporter: pytest-plain
