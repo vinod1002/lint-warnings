@@ -1,0 +1,20 @@
+name: Long Running Workflow
+
+on: workflow_dispatch
+
+jobs:
+  long_running_job:
+    runs-on: self-hosted
+
+    steps:
+      
+      - name: Start long-running step
+        run: |
+          echo "::group::Long Running Step"
+          echo "Step started"
+          for i in {1..18}; do
+            echo "I am still here - Iteration $i - $(date)"
+            sleep 300 # Sleep for 5 minutes
+          done
+          echo "Step completed"
+          echo "::endgroup::"
