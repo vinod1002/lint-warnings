@@ -12,9 +12,10 @@ jobs:
         run: |
           echo "::group::Long Running Step"
           echo "Step started"
-          for i in {1..18}; do
+          for i in {1..10}; do
             echo "I am still here - Iteration $i - $(date)"
-            sleep 300 # Sleep for 5 minutes
+            echo "Sleep mode for 1 minute - $(date)\n"
+            sleep 60 # Sleep for 1 minute
           done
           echo "Step completed"
           echo "::endgroup::"
